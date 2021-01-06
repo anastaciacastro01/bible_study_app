@@ -38,7 +38,7 @@ export default function App() {
           <Stack.Screen 
             name = "Profile"
             component = { ProfileScreen }
-            options = {({ route })} => ({ title: 'Profile' })}
+            options = {({ route }) => ({ title: route.params.name })}
           />
           <Stack.Screen
             name = "Details"
@@ -56,7 +56,7 @@ export default function App() {
 }
 
 const HomeScreen = ({ navigation, route }) => {
-  var user_name = 'Luke';
+  var user_name = 'Patrick';
   var ex_title = "Go to " + user_name + "'s profile";
 
   React.useEffect(() => {
@@ -87,6 +87,10 @@ const HomeScreen = ({ navigation, route }) => {
       title = "Create Post"
       onPress = {() =>
         navigation.navigate('CreatePost')}
+    />
+    <Button
+      title = "Update the title"
+      onPress = {() => navigation.setOptions({ title: "Updated!" })}
     />
     <Text style = {{ margin: 10 }}>Post: {route.params?.post}</Text>
     </View>
