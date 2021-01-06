@@ -5,21 +5,6 @@ import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-/** 
- * main app
- */
- /*
-export default function App() {
-  return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-      </View>
-    </NavigationContainer>
-  );
-}
-*/
-
 /**
  * navigation
  */
@@ -33,7 +18,7 @@ export default function App() {
           <Stack.Screen
             name = "Home"
             component = { HomeScreen }
-            options = {{ title: 'Welcome' }}
+            options = {{ headerTitle: props => <MainHeader {...props} /> }}
           />
           <Stack.Screen 
             name = "Profile"
@@ -41,13 +26,14 @@ export default function App() {
             options = {({ route }) => ({ title: route.params.name })}
           />
           <Stack.Screen
-            name = "Details"
-            component = { DetailsScreen}
-            initialParams = {{ itemId: 42, otherParam: "hello!" }}
+            name = "Chat"
+            component = { ChatScreen }
+            options = {{ title: 'Chat' }}
           />
           <Stack.Screen
-            name = "CreatePost"
-            component = { CreatePostScreen }
+            name = "PrayerBoard"
+            component = { PrayerBoardScreen }
+            options = {{ title: 'Prayer Board' }}
           />
         </Stack.Navigator>
         <StatusBar style = "auto" />
@@ -55,106 +41,48 @@ export default function App() {
   )
 }
 
-const HomeScreen = ({ navigation, route }) => {
-  var user_name = 'Patrick';
-  var ex_title = "Go to " + user_name + "'s profile";
-
-  React.useEffect(() => {
-    if (route.params?.post) {
-      // Post updated, do something with 'route.params.post'
-      // For example, send the post to the server
-    }
-  }, [route.params?.post]);
-
+function MainHeader() {
   return (
-    <View style = {styles.generalView} >
-    <Button
-      title = {ex_title}
-      onPress = {() =>
-        navigation.navigate('Profile', { name: user_name })
-      }
+    <View style = {styles.header}>
+    <Image
+      source = {require('
     />
-    <Button
-      title = "Go to Details"
-      onPress = {() => {
-        navigation.navigate('Details', {
-          itemId: 86,
-          otherParam: 'buddy',
-        });
-        }}
-    />
-    <Button
-      title = "Create Post"
-      onPress = {() =>
-        navigation.navigate('CreatePost')}
-    />
-    <Button
-      title = "Update the title"
-      onPress = {() => navigation.setOptions({ title: "Updated!" })}
-    />
-    <Text style = {{ margin: 10 }}>Post: {route.params?.post}</Text>
+    </View>
+  );
+}
+
+const HomeScreen = ({ navigation, route }) => {
+  return (
+    <View style = { styles.generalView } >
     </View>
   );
 };
 
 const ProfileScreen = ({ navigation, route }) => {
-  return <Text> This is {route.params.name}'s profile </Text>;
+  return (
+    <View style = { styles.generalView } >
+    </View>
+  );
 };
 
-const DetailsScreen = ({ navigation, route }) => {
-  var { itemId, otherParam } = route.params;
+const ChatScreen = ({ navigation, route }) => {
   return (
-    <View style = {styles.generalView}>
-      <Text> Details Screen </Text>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button
-        title = "Go to Details... again"
-        onPress = {() =>
-          navigation.push('Details', {
-            itemId: Math.floor(Math.random() * 100),
-          })
-        }
-      />
-      <Button
-        title = "Go to Home"
-        onPress = {() => navigation.navigate('Home')}
-      />
-      <Button
-        title = "Go back"
-        onPress = {() => navigation.goBack()}
-      />
+    <View style = { styles.generalView }>
     </View>
   );
 }
 
-const CreatePostScreen = ({ navigation, route }) => {
-  const [postText, setPostText] = React.useState('');
-
+const PrayerBoardScreen = ({ navigation, route }) => {
   return (
-    <>
-      <TextInput
-        multiline
-        placeholder = "What's on your mind?"
-        style = {{ height: 200, padding: 10, backgroundColor: 'white' }}
-        value = {postText}
-        onChangeText = {setPostText}
-      />
-      <Button
-        title = "Done"
-        onPress = {() => {
-          //Pass params back to home screen
-          navigation.navigate('Home', { post: postText });
-        }}
-      />
-    </>
+    <View style = { styles.generalView }>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#0000ff',
     alignItems: 'center',
     justifyContent: 'center',
   },
