@@ -4,44 +4,71 @@ import React from 'react';
 import { Alert, Button, StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 /**
  * navigation
  */
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(); // currently using tab navigation instead
+const Tab = createBottomTabNavigator();
 
 // const MyStack = () => {
 export default function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="Studies" headerMode="screen">
-          <Stack.Screen
+        <Tab.Navigator 
+          initialRouteName="Studies" 
+          screenOptions = {({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if(route.name === 'Studies') {
+                iconName = focused
+                  ? 'ios-book'
+                  : 'ios-book-outline'
+              } else if (route.name === 'Chat') {
+                iconName = focused
+                  ? 'ios-chatbubbles-sharp'
+                  : 'ios-chatbubbles-outline'
+              } else if (route.name === 'PrayerBoard') {
+                iconName = focused
+                  ? 'ios-people-sharp'
+                  : 'ios-people-outline'
+              } else if (route.name === 'Menu') {
+                iconName = focused
+                  ? 'ios-menu-sharp'
+                  : 'ios-menu-outline'
+              }
+
+              return <Ionicons name = {iconName} size = {size} color = {color} />;
+            },
+          })}
+          tabBarOptions ={{
+            activeTintColor: 'seagreen',
+            inactiveTintColor: 'mediumseagreen',
+          }}
+        >
+          <Tab.Screen
+            name = "Menu"
+            component = { ProfileScreen }
+          />
+          <Tab.Screen 
             name = "Studies"
             component = { StudiesScreen }
-            options = {{ 
-              headerTitle: props => <MainHeader {...props} />,
-              headerStyle: {
-                backgroundColor: 'green',
-                flexDirection: 'row',
-              }
-            }}
+            options = {{ title: 'Studies' }}
           />
-          <Stack.Screen 
-            name = "Profile"
-            component = { ProfileScreen }
-            options = {({ route }) => ({ title: route.params.name })}
-          />
-          <Stack.Screen
+          <Tab.Screen
             name = "Chat"
             component = { ChatScreen }
             options = {{ title: 'Chat' }}
           />
-          <Stack.Screen
+          <Tab.Screen
             name = "PrayerBoard"
             component = { PrayerBoardScreen }
             options = {{ title: 'Prayer Board' }}
           />
-        </Stack.Navigator>
+        </Tab.Navigator>
         <StatusBar style = "auto" />
     </NavigationContainer>
   )
