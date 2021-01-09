@@ -14,11 +14,17 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Studies" headerMode="screen">
           <Stack.Screen
-            name = "Home"
-            component = { HomeScreen }
-            options = {{ headerTitle: props => <MainHeader {...props} /> }}
+            name = "Studies"
+            component = { StudiesScreen }
+            options = {{ 
+              headerTitle: props => <MainHeader {...props} />,
+              headerStyle: {
+                backgroundColor: 'green',
+                flexDirection: 'row',
+              }
+            }}
           />
           <Stack.Screen 
             name = "Profile"
@@ -88,7 +94,7 @@ function MainHeader() {
   );
 }
 
-const HomeScreen = ({ navigation, route }) => {
+const StudiesScreen = ({ navigation, route }) => {
   return (
     <View style = { styles.generalView } >
     </View>
@@ -119,16 +125,12 @@ const PrayerBoardScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0000ff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   generalView: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   tinyLogo: {
+    flex: 1,
     width: 40,
     height: 40,
   },
@@ -136,5 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    backgroundColor: 'blue',
+    flexGrow: 1,
   },
 });
