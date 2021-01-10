@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StudiesScreen } from './screens/StudiesScreen.js';
+import { ChatScreen } from './screens/ChatScreen.js';
+import { PrayerBoardScreen } from './screens/PrayerBoardScreen.js';
 
 /**
  * navigation
@@ -82,20 +84,6 @@ const ProfileScreen = ({ navigation, route }) => {
     </View>
   );
 };
-
-const ChatScreen = ({ navigation, route }) => {
-  return (
-    <View style = { styles.generalView }>
-    </View>
-  );
-}
-
-const PrayerBoardScreen = ({ navigation, route }) => {
-  return (
-    <View style = { styles.generalView }>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
