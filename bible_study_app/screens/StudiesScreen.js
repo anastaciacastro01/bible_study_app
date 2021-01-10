@@ -1,19 +1,37 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { ImageBackground, View, Text, SafeAreaView, StyleSheet, FlatList, StatusBar, Pressable } from 'react-native';
-// import { StatusBar } from 'expo-status-bar';
+import { useWindowDimensions, 
+         FlatList, 
+         ImageBackground, 
+         Pressable, 
+         SafeAreaView, 
+         ScrollView,
+         StatusBar, 
+         StyleSheet, 
+         Text, 
+         View, 
+       } from 'react-native';
 
-const Study = ({ pic, caption }) => (
-  <View>
-    <Pressable style = { styles.study }>
-      <ImageBackground source = { pic } style = { styles.image }>
-        <Text style = { styles.caption }> { caption } </Text>
-      </ImageBackground>
-    </Pressable>
-  </View>
-);
+const Study = ({ pic, caption }) => {
+  const thisWindow = useWindowDimensions();
+  
+  return (
+    <View>
+      <Pressable style = {{ 
+        flex: 1, 
+        width: thisWindow.width / 3, 
+        height: thisWindow.width / 2, 
+        marginHorizontal: 10,
+      }}>
+        <ImageBackground source = { pic } style = { styles.image }>
+          <Text style = { styles.caption }> { caption } </Text>
+        </ImageBackground>
+      </Pressable>
+    </View>
+  );
+};
 
-const DATA = [
+const SECTION_DATA = [
   {
     title: 'Most Recent',
     contents: [
@@ -91,15 +109,22 @@ const DATA = [
   },
 ];
 
-const Section = ({ contents }) => (
+const Section = ({ title, contents }) => (
   <View style = { styles.section }>
-    { contents }
+    <Text>{title}</Text>
+    <ScrollView 
+      style = {{ flex: 1, flexDirection: 'row' }}
+      horizontal = { true }
+    >
+      { contents }
+    </ScrollView>
   </View>
 );
 
 export const StudiesScreen = ({ navigation, route }) => {
   const renderSection = ({ item, index, separators }) => (
     <Section 
+      title = { item.title }
       contents = { item.contents }
     />
   );
@@ -107,7 +132,7 @@ export const StudiesScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style = { styles.container } >
       <FlatList
-        data = { DATA }
+        data = { SECTION_DATA }
         renderItem = { renderSection }
       />
     </SafeAreaView>
@@ -121,7 +146,7 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   caption: {
     color: 'white',
