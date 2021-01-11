@@ -1,6 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
+import { Header } from 'react-native-elements';
 import { useWindowDimensions, 
+         Alert,
          FlatList, 
          ImageBackground, 
          Pressable, 
@@ -111,7 +115,7 @@ const SECTION_DATA = [
 
 const Section = ({ title, contents }) => (
   <View style = { styles.section }>
-    <Text>{title}</Text>
+    <Text style = {{ fontSize: 25, }}>{title}</Text>
     <ScrollView 
       style = {{ flex: 1, flexDirection: 'row' }}
       horizontal = { true }
@@ -121,7 +125,7 @@ const Section = ({ title, contents }) => (
   </View>
 );
 
-export const StudiesScreen = ({ navigation, route }) => {
+const HomeScreen = ({ navigation, route }) => {
   const renderSection = ({ item, index, separators }) => (
     <Section 
       title = { item.title }
@@ -139,14 +143,61 @@ export const StudiesScreen = ({ navigation, route }) => {
   );
 };
 
+const StudiesStack = createStackNavigator();
+
+export const StudiesStackScreen = () => {
+  return (
+    <StudiesStack.Navigator
+      initialRouteName = "Home"
+    >
+      <StudiesStack.Screen 
+        name = "Home" 
+        component = { HomeScreen } 
+        options = {{  
+          headerTitle: "Studies",
+          headerTitleAlign: "left",
+          headerTitleStyle: { 
+            fontSize: 30, 
+          },
+          headerRight: () => (
+            <View style = {{ 
+              flex: 1, 
+              flexDirection: 'row', 
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+              marginBottom: 10,
+            }}>
+              <Pressable
+                onPress = {() => Alert.alert('Search pressed')}
+                style = { styles.tinyIcon }
+              >
+                <Ionicons name = "ios-search-outline" size = { 22 } color = { "seagreen" }/>
+              </Pressable>
+              <Pressable
+                onPress = {() => Alert.alert('Create pressed')}
+                style = { styles.tinyIcon }
+              >
+                <Ionicons name = "ios-create-outline" size = { 22 } color = { "seagreen" }/>
+              </Pressable>
+            </View>
+          ),
+        }}
+      />
+    </StudiesStack.Navigator>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: '#fff',
   },
   section: {
     flex: 1,
     flexDirection: 'column',
+    marginTop: 10,
+    marginLeft: 10,
   },
   caption: {
     color: 'white',
@@ -156,9 +207,17 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   study: {
     flex: 1,
+  },
+  tinyIcon: {
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: 'seagreen',
+    borderRadius: 25,
+    padding: 5,
   },
 });

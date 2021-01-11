@@ -1,12 +1,21 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Alert, Button, StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Alert, 
+         Button, 
+         Image, 
+         Pressable,
+         StyleSheet, 
+         Text, 
+         TextInput, 
+         TouchableOpacity, 
+         View, 
+       } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StudiesScreen } from './screens/StudiesScreen.js';
+import { StudiesStackScreen } from './screens/StudiesScreen.js';
 import { ChatScreen } from './screens/ChatScreen.js';
 import { PrayerBoardScreen } from './screens/PrayerBoardScreen.js';
 
@@ -45,8 +54,12 @@ export default function App() {
                   ? 'ios-menu-sharp'
                   : 'ios-menu-outline'
               }
+              
+              console.log(size);
 
-              return <Ionicons name = {iconName} size = {size} color = {color} />;
+              return (
+                <Ionicons name = {iconName} size = {size} color = {color} />
+              );
             },
           })}
           tabBarOptions ={{
@@ -60,7 +73,7 @@ export default function App() {
           />
           <Tab.Screen 
             name = "Studies"
-            component = { StudiesScreen }
+            component = { StudiesStackScreen }
             options = {{ title: 'Studies' }}
           />
           <Tab.Screen
