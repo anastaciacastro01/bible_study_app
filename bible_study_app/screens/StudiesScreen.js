@@ -6,7 +6,7 @@ import { Header } from 'react-native-elements';
 import { useWindowDimensions, 
          Alert,
          FlatList, 
-         ImageBackground, 
+         Image, 
          Pressable, 
          SafeAreaView, 
          ScrollView,
@@ -27,9 +27,8 @@ const Study = ({ pic, caption }) => {
         height: thisWindow.width / 2, 
         marginHorizontal: 10,
       }}>
-        <ImageBackground source = { pic } style = { styles.image }>
-          <Text style = { styles.caption }> { caption } </Text>
-        </ImageBackground>
+        <Image source = { pic } style = { styles.image }/>
+        <Text style = { styles.caption }> { caption } </Text>
       </Pressable>
     </View>
   );
@@ -47,15 +46,15 @@ const SECTION_DATA = [
     title: 'Past Studies',
     contents: [
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimg%2F1803666.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FWVN2cWE.jpg&f=1&nofb=1' }}
         caption = "Verse 1"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcliparts.co%2Fcliparts%2F8iE%2F67B%2F8iE67BbBT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F06%2FFree-HD-Solid-Color-Wallpaper-Download.jpg&f=1&nofb=1' }}
         caption = "Verse 2"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages%2FkiMKj8ERT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F06%2FFree-HD-Solid-Color-Wallpaper-Download.jpg&f=1&nofb=1' }}
         caption = "Verse 3"
       />,
     ]
@@ -64,15 +63,15 @@ const SECTION_DATA = [
     title: 'Recommended',
     contents: [
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimg%2F1803666.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FlVsBD3A.jpg&f=1&nofb=1' }}
         caption = "Verse 4"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcliparts.co%2Fcliparts%2F8iE%2F67B%2F8iE67BbBT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.YbBfulf4LKlPt2DXhzg49wHaFj%26pid%3DApi&f=1' }}
         caption = "Verse 5"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages%2FkiMKj8ERT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.cVSGkVTO5RMIKe9RIgIYJgHaEo%26pid%3DApi&f=1' }}
         caption = "Verse 6"
       />,
     ]
@@ -81,15 +80,15 @@ const SECTION_DATA = [
     title: 'Popular',
     contents: [
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimg%2F1803666.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.MGfeO_1WhfRoqaVuu9hW9gHaEo%26pid%3DApi&f=1' }}
         caption = "Verse 7"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcliparts.co%2Fcliparts%2F8iE%2F67B%2F8iE67BbBT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP._mMsTvVECB0oIWIZRLyXXgHaEo%26pid%3DApi&f=1' }}
         caption = "Verse 8"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages%2FkiMKj8ERT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.IS48BbWXFH_gieoBLf7ABQHaEo%26pid%3DApi&f=1' }}
         caption = "Verse 9"
       />,
     ]
@@ -98,15 +97,15 @@ const SECTION_DATA = [
     title: 'Browse by Theme',
     contents: [
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimg%2F1803666.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.lrkPsPieG3IbpWBelNncnwHaF7%26pid%3DApi&f=1' }}
         caption = "Theme 1"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcliparts.co%2Fcliparts%2F8iE%2F67B%2F8iE67BbBT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.VI51i8bwgzTnByzjIk_OngHaEo%26pid%3DApi&f=1' }}
         caption = "Theme 2"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fclipart-library.com%2Fimages%2FkiMKj8ERT.png&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.9znt-x7nSxInwXpgAv7klAHaFj%26pid%3DApi&f=1' }}
         caption = "Theme 3"
       />,
     ]
@@ -115,7 +114,7 @@ const SECTION_DATA = [
 
 const Section = ({ title, contents }) => (
   <View style = { styles.section }>
-    <Text style = {{ fontSize: 25, }}>{title}</Text>
+    <Text style = {{ fontSize: 25, margin: 10, }}>{title}</Text>
     <ScrollView 
       style = {{ flex: 1, flexDirection: 'row' }}
       horizontal = { true }
@@ -209,9 +208,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  study: {
-    flex: 1,
   },
   tinyIcon: {
     marginRight: 10,
