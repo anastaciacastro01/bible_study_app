@@ -19,6 +19,7 @@ import { useWindowDimensions,
 const FONT_SIZES = {
   sectionHeader: 25,
   studyTitle: 15,
+  recentStudyTitle: 18,
   pageHeader: 30,
   iconSize: 25,
 }
@@ -43,23 +44,35 @@ const Study = ({ pic, caption }) => {
   );
 };
 
-const RecentStudy = ({ pic, caption }) => {
+const RecentStudy = ({ pic, title, blurb, verses }) => {
   const thisWindow = useWindowDimensions();
+
+  const sideText = blurb + "\n" + verses;
 
   return (
     <View>
       <Pressable
         style = {{
           flex: 1,
-          width: thisWindow.height / 2,
-          height: thisWindow.widht / 2,
           borderRadius: 10,
+          height: thisWindow.width / 2,
+          width: thisWindow.width - 20,
           overflow: 'hidden',
           flexDirection: 'row',
+          alignSelf: 'center',
         }}
       >
         <Image source = { pic } style = { styles.image }/>
-        <Text style = { styles.caption }> { caption } </Text>
+        <View style = {{
+          textAlign: 'left',
+          backgroundColor: '#e2e7d6',
+          padding: 5,
+          fontSize: FONT_SIZES.studyTitle,
+          maxWidth: (thisWindow.width - 20) * .33,
+        }}>
+          <Text style = { styles.recentStudyTitle }> { title } </Text>
+          <Text style = { styles.caption }> { sideText } </Text>
+        </View>
       </Pressable>
     </View>
   );
@@ -67,30 +80,20 @@ const RecentStudy = ({ pic, caption }) => {
 
 const SECTION_DATA = [
   {
-    id: 1,
-    title: 'Most Recent',
-    contents: [
-      <RecentStudy
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.lrkPsPieG3IbpWBelNncnwHaF7%26pid%3DApi&f=1' }}
-        caption = "Theme 1"
-      />
-    ]
-  },
-  {
     id: 2,
     title: 'Past Studies',
     contents: [
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FWVN2cWE.jpg&f=1&nofb=1' }}
-        caption = "Verse 1"
+        caption = "Study 1"
       />,
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F06%2FFree-HD-Solid-Color-Wallpaper-Download.jpg&f=1&nofb=1' }}
-        caption = "Verse 2"
+        caption = "Study 2"
       />,
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.IS48BbWXFH_gieoBLf7ABQHaEo%26pid%3DApi&f=1' }}
-        caption = "Verse 3"
+        caption = "Study 3"
       />,
     ]
   },
@@ -100,15 +103,15 @@ const SECTION_DATA = [
     contents: [
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FlVsBD3A.jpg&f=1&nofb=1' }}
-        caption = "Verse 4"
+        caption = "Study 4"
       />,
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.YbBfulf4LKlPt2DXhzg49wHaFj%26pid%3DApi&f=1' }}
-        caption = "Verse 5"
+        caption = "Study 5"
       />,
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.cVSGkVTO5RMIKe9RIgIYJgHaEo%26pid%3DApi&f=1' }}
-        caption = "Verse 6"
+        caption = "Study 6"
       />,
     ]
   },
@@ -118,15 +121,15 @@ const SECTION_DATA = [
     contents: [
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.MGfeO_1WhfRoqaVuu9hW9gHaEo%26pid%3DApi&f=1' }}
-        caption = "Verse 7"
+        caption = "Study 7"
       />,
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP._mMsTvVECB0oIWIZRLyXXgHaEo%26pid%3DApi&f=1' }}
-        caption = "Verse 8"
+        caption = "Study 8"
       />,
       <Study
         pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.IS48BbWXFH_gieoBLf7ABQHaEo%26pid%3DApi&f=1' }}
-        caption = "Verse 9"
+        caption = "Study 9"
       />,
     ]
   },
@@ -172,11 +175,25 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style = { styles.container } >
+      <ScrollView>
+      <View style = {{
+        flexDirection: 'column',
+        marginBottom: 10,
+      }}>
+        <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> Most Recent </Text>
+        <RecentStudy
+          pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.lrkPsPieG3IbpWBelNncnwHaF7%26pid%3DApi&f=1' }}
+          title = "Title of Study"
+          blurb = "Here is some information about the study"
+          verses = ""
+        />
+      </View>
       <FlatList
         data = { SECTION_DATA }
         renderItem = { renderSection }
         keyExtractor = { item => item.id }
       />
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -234,7 +251,6 @@ const styles = StyleSheet.create({
   section: {
     flex: 1,
     flexDirection: 'column',
-    marginLeft: 10,
     marginBottom: 10,
   },
   caption: {
@@ -242,6 +258,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#e2e7d6',
     padding: 5,
     fontSize: FONT_SIZES.studyTitle,
+  },
+  recentStudyTitle: {
+    textAlign: 'left',
+    fontSize: FONT_SIZES.recentStudyTitle,
   },
   image: {
     flex: 1,
