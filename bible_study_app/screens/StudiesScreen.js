@@ -16,6 +16,13 @@ import { useWindowDimensions,
          View, 
        } from 'react-native';
 
+const FONT_SIZES = {
+  sectionHeader: 25,
+  studyTitle: 15,
+  pageHeader: 30,
+  iconSize: 25,
+}
+
 const Study = ({ pic, caption }) => {
   const thisWindow = useWindowDimensions();
   
@@ -26,6 +33,8 @@ const Study = ({ pic, caption }) => {
         width: thisWindow.width / 3, 
         height: thisWindow.width / 2, 
         marginHorizontal: 10,
+        borderRadius: 10,
+        overflow: 'hidden',
       }}>
         <Image source = { pic } style = { styles.image }/>
         <Text style = { styles.caption }> { caption } </Text>
@@ -34,15 +43,41 @@ const Study = ({ pic, caption }) => {
   );
 };
 
+const RecentStudy = ({ pic, caption }) => {
+  const thisWindow = useWindowDimensions();
+
+  return (
+    <View>
+      <Pressable
+        style = {{
+          flex: 1,
+          width: thisWindow.height / 2,
+          height: thisWindow.widht / 2,
+          borderRadius: 10,
+          overflow: 'hidden',
+          flexDirection: 'row',
+        }}
+      >
+        <Image source = { pic } style = { styles.image }/>
+        <Text style = { styles.caption }> { caption } </Text>
+      </Pressable>
+    </View>
+  );
+}
+
 const SECTION_DATA = [
   {
+    id: 1,
     title: 'Most Recent',
     contents: [
-      <Pressable>
-      </Pressable>
+      <RecentStudy
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.lrkPsPieG3IbpWBelNncnwHaF7%26pid%3DApi&f=1' }}
+        caption = "Theme 1"
+      />
     ]
   },
   {
+    id: 2,
     title: 'Past Studies',
     contents: [
       <Study
@@ -54,12 +89,13 @@ const SECTION_DATA = [
         caption = "Verse 2"
       />,
       <Study
-        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F06%2FFree-HD-Solid-Color-Wallpaper-Download.jpg&f=1&nofb=1' }}
+        pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.IS48BbWXFH_gieoBLf7ABQHaEo%26pid%3DApi&f=1' }}
         caption = "Verse 3"
       />,
     ]
   },
   {
+    id: 3,
     title: 'Recommended',
     contents: [
       <Study
@@ -77,6 +113,7 @@ const SECTION_DATA = [
     ]
   },
   {
+    id: 4,
     title: 'Popular',
     contents: [
       <Study
@@ -94,6 +131,7 @@ const SECTION_DATA = [
     ]
   },
   {
+    id: 5,
     title: 'Browse by Theme',
     contents: [
       <Study
@@ -114,7 +152,7 @@ const SECTION_DATA = [
 
 const Section = ({ title, contents }) => (
   <View style = { styles.section }>
-    <Text style = {{ fontSize: 25, margin: 10, }}>{title}</Text>
+    <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}>{title}</Text>
     <ScrollView 
       style = {{ flex: 1, flexDirection: 'row' }}
       horizontal = { true }
@@ -137,6 +175,7 @@ const HomeScreen = ({ navigation, route }) => {
       <FlatList
         data = { SECTION_DATA }
         renderItem = { renderSection }
+        keyExtractor = { item => item.id }
       />
     </SafeAreaView>
   );
@@ -156,7 +195,7 @@ export const StudiesStackScreen = () => {
           headerTitle: "Studies",
           headerTitleAlign: "left",
           headerTitleStyle: { 
-            fontSize: 30, 
+            fontSize: FONT_SIZES.pageHeader, 
           },
           headerRight: () => (
             <View style = {{ 
@@ -170,13 +209,13 @@ export const StudiesStackScreen = () => {
                 onPress = {() => Alert.alert('Search pressed')}
                 style = { styles.tinyIcon }
               >
-                <Ionicons name = "ios-search-outline" size = { 22 } color = { "seagreen" }/>
+                <Ionicons name = "ios-search-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
               </Pressable>
               <Pressable
                 onPress = {() => Alert.alert('Create pressed')}
                 style = { styles.tinyIcon }
               >
-                <Ionicons name = "ios-create-outline" size = { 22 } color = { "seagreen" }/>
+                <Ionicons name = "ios-create-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
               </Pressable>
             </View>
           ),
@@ -195,13 +234,14 @@ const styles = StyleSheet.create({
   section: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: 10,
     marginLeft: 10,
+    marginBottom: 10,
   },
   caption: {
-    color: 'white',
-    textAlign: 'center',
-    backgroundColor: '#000000a0',
+    textAlign: 'left',
+    backgroundColor: '#e2e7d6',
+    padding: 5,
+    fontSize: FONT_SIZES.studyTitle,
   },
   image: {
     flex: 1,
@@ -210,10 +250,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tinyIcon: {
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: 'seagreen',
-    borderRadius: 25,
-    padding: 5,
+    marginRight: 20,
   },
 });
