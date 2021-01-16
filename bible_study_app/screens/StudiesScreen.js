@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Header } from 'react-native-elements';
 import { useWindowDimensions, 
          Alert,
+         Button,
          FlatList, 
          Image, 
          Pressable, 
@@ -25,6 +26,7 @@ const FONT_SIZES = {
   recentStudyTitle: 18,
   pageHeader: 30,
   iconSize: 25,
+  buttonTitle: 18,
 }
 
 /**
@@ -50,7 +52,11 @@ const Study = ({ pic, title, nav }) => {
         }}
         onPress = {() => {
           nav.navigate("Study", {
-            name: title
+            name: title,
+            imgSrc: pic,
+            studyTitle: title,
+            studyBlurb: 'Blurb to be replaced',
+            studyVerses: 'Verses to be replaced',
           });
         }}
       >
@@ -265,8 +271,92 @@ const HomeScreen = ({ navigation, route }) => {
 };
 
 const StudyScreen = ({ navigation, route }) => {
+  const thisWindow = useWindowDimensions();
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style = { styles.container } >
+      <ScrollView>
+        <Image source = { route.params.imgSrc } 
+               style = {{  
+                flex: 1,
+                resizeMode: 'cover',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+                height: thisWindow.height / 3,
+               }}
+        />
+        <View style = { styles.section }>
+          <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> { route.params.studyTitle } </Text>
+          <Text style = {{ marginLeft: 10, marginBottom: 10,}}> { route.params.studyBlurb } </Text>
+          <Text style = {{ marginLeft: 10, marginBottom: 10, }}> { route.params.studyVerses } </Text>
+          <Pressable
+            onPress = {() => Alert.alert('Open Bible')}
+            style = {{
+              borderRadius: 10,
+              overflow: 'hidden',
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style = { styles.studyButtons }
+            > Open Bible </Text>
+          </Pressable>
+          <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> Study Tools </Text>
+          <Pressable
+            onPress = {() => Alert.alert('Open Context')}
+            style = {{
+              borderRadius: 10,
+              overflow: 'hidden',
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style = { styles.studyButtons }
+            > Context </Text>
+          </Pressable>
+          <Pressable
+            onPress = {() => Alert.alert('Open Commentaries')}
+            style = {{
+              borderRadius: 10,
+              overflow: 'hidden',
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style = { styles.studyButtons }
+            > Commentaries </Text>
+          </Pressable>
+          <Pressable
+            onPress = {() => Alert.alert('Open Guiding Questions')}
+            style = {{
+              borderRadius: 10,
+              overflow: 'hidden',
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style = { styles.studyButtons }
+            > Guiding Questions </Text>
+          </Pressable>
+          <Pressable
+            onPress = {() => Alert.alert('Open Maps')}
+            style = {{
+              borderRadius: 10,
+              overflow: 'hidden',
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style = { styles.studyButtons }
+            > Maps </Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -318,7 +408,9 @@ export const StudiesStackScreen = () => {
       <StudiesStack.Screen
         name = "Study"
         component = { StudyScreen }
-        options = {({ route }) => ({ title: route.params.name })}
+        options = {({ route }) => ({ 
+          title: route.params.name, 
+        })}
       />
     </StudiesStack.Navigator>
   );
@@ -363,5 +455,13 @@ const styles = StyleSheet.create({
   },
   tinyIcon: {
     marginRight: 20,
+  },
+  studyButtons: {
+    marginHorizontal: 10,
+    marginBottom: 10,
+    fontSize: FONT_SIZES.buttonTitle,
+    backgroundColor: "#3cb371",
+    color: "white",
+    padding: 5,
   },
 });

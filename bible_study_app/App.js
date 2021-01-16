@@ -55,7 +55,6 @@ export default function App() {
                   : 'ios-menu-outline'
               }
               
-              console.log(size);
 
               return (
                 <Ionicons name = {iconName} size = {size} color = {color} />
