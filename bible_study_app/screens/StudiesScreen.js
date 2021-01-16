@@ -33,10 +33,12 @@ const FONT_SIZES = {
  * Study frame - creates the design of a study to be used in the studies main page
  *
  * @params: pic - the picture related to the study
- *          caption - the title of the study
  *          nav - nav for the StudiesStackScreen
+ *          title - the title of the study
+ *          blurb - short blurb about the study
+ *          verses - verses that the study will go over (optional)
  */
-const Study = ({ pic, title, nav }) => {
+const Study = ({ pic, nav, title, group, blurb, verses, }) => {
   const thisWindow = useWindowDimensions();
   
   return (
@@ -55,8 +57,9 @@ const Study = ({ pic, title, nav }) => {
             name: title,
             imgSrc: pic,
             studyTitle: title,
-            studyBlurb: 'Blurb to be replaced',
-            studyVerses: 'Verses to be replaced',
+            studyBlurb: blurb,
+            studyVerses: verses,
+            studyGroup: group,
           });
         }}
       >
@@ -72,6 +75,7 @@ const Study = ({ pic, title, nav }) => {
  * in the studies main page
  *
  * @params: pic - the picture related to the study
+ *          nav - nav for the StudiesStackScreen
  *          title - the title of the study
  *          blurb - short blurb about the study
  *          verses - verses that the study will go over (optional)
@@ -95,7 +99,11 @@ const RecentStudy = ({ pic, nav, title, blurb, verses }) => {
         }}
         onPress = {() => {
           nav.navigate("Study", {
-            name: title
+            name: title,
+            imgSrc: pic,
+            studyTitle: title,
+            studyBlurb: blurb,
+            studyVerses: verses,
           });
         }}
       >
@@ -126,15 +134,24 @@ const SECTION_DATA = [
     contents: [
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FWVN2cWE.jpg&f=1&nofb=1',
-        title: "Study 1"
+        title: "Study 1",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F06%2FFree-HD-Solid-Color-Wallpaper-Download.jpg&f=1&nofb=1',
-        title: "Study 2"
+        title: "Study 2",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.IS48BbWXFH_gieoBLf7ABQHaEo%26pid%3DApi&f=1',
-        title: "Study 3"
+        title: "Study 3",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
     ]
   },
@@ -144,15 +161,24 @@ const SECTION_DATA = [
     contents: [
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FlVsBD3A.jpg&f=1&nofb=1',
-        title: "Study 4"
+        title: "Study 4",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
      {
         pic: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.YbBfulf4LKlPt2DXhzg49wHaFj%26pid%3DApi&f=1',
-        title: "Study 5"
+        title: "Study 5",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.cVSGkVTO5RMIKe9RIgIYJgHaEo%26pid%3DApi&f=1',
-        title: "Study 6"
+        title: "Study 6",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
     ]
   },
@@ -162,15 +188,24 @@ const SECTION_DATA = [
     contents: [
      {
         pic: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.MGfeO_1WhfRoqaVuu9hW9gHaEo%26pid%3DApi&f=1',
-        title: "Study 7"
+        title: "Study 7",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP._mMsTvVECB0oIWIZRLyXXgHaEo%26pid%3DApi&f=1',
-        title: "Study 8"
+        title: "Study 8",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
       {
         pic: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.IS48BbWXFH_gieoBLf7ABQHaEo%26pid%3DApi&f=1',
-        title: "Study 9"
+        title: "Study 9",
+        blurb: "Blurb about this study",
+        verses: "Some verses this study goes over",
+        group: "Group name",
       },
     ]
   },
@@ -202,6 +237,9 @@ const renderStudyList = (contents, navigation) => (
           pic = {{ uri: study.pic }}
           title = { study.title }
           nav = { navigation }
+          blurb = { study.blurb }
+          verses = { study.verses }
+          group = { study.group }
         />
       )
     }
@@ -256,6 +294,7 @@ const HomeScreen = ({ navigation, route }) => {
           pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.lrkPsPieG3IbpWBelNncnwHaF7%26pid%3DApi&f=1' }}
           nav = { navigation }
           title = "Title of Study"
+          group = "Group Name"
           blurb = "Here is some information about the study"
           verses = ""
         />
@@ -287,6 +326,7 @@ const StudyScreen = ({ navigation, route }) => {
         />
         <View style = { styles.section }>
           <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> { route.params.studyTitle } </Text>
+          <Text style = {{ marginLeft: 10, marginBottom: 10,}}> { route.params.studyGroup } </Text>
           <Text style = {{ marginLeft: 10, marginBottom: 10,}}> { route.params.studyBlurb } </Text>
           <Text style = {{ marginLeft: 10, marginBottom: 10, }}> { route.params.studyVerses } </Text>
           <Pressable
@@ -296,11 +336,30 @@ const StudyScreen = ({ navigation, route }) => {
               overflow: 'hidden',
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor: "#3cb371",
+              marginHorizontal: 10,
+              marginBottom: 10,
             }}
           >
             <Text
               style = { styles.studyButtons }
             > Open Bible </Text>
+          </Pressable>
+          <Pressable
+            onPress = {() => Alert.alert('Open Context')}
+            style = {{
+              borderRadius: 10,
+              overflow: 'hidden',
+              marginBottom: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#3cb371",
+              marginHorizontal: 10,
+            }}
+          >
+            <Text
+              style = { styles.studyButtons }
+            > Reflection Forum </Text>
           </Pressable>
           <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> Study Tools </Text>
           <Pressable
@@ -308,8 +367,11 @@ const StudyScreen = ({ navigation, route }) => {
             style = {{
               borderRadius: 10,
               overflow: 'hidden',
+              marginBottom: 10,
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor: "#3cb371",
+              marginHorizontal: 10,
             }}
           >
             <Text
@@ -321,6 +383,9 @@ const StudyScreen = ({ navigation, route }) => {
             style = {{
               borderRadius: 10,
               overflow: 'hidden',
+              marginBottom: 10,
+              marginHorizontal: 10,
+              backgroundColor: "#3cb371",
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -334,6 +399,9 @@ const StudyScreen = ({ navigation, route }) => {
             style = {{
               borderRadius: 10,
               overflow: 'hidden',
+              marginBottom: 10,
+              marginHorizontal: 10,
+              backgroundColor: "#3cb371",
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -347,6 +415,9 @@ const StudyScreen = ({ navigation, route }) => {
             style = {{
               borderRadius: 10,
               overflow: 'hidden',
+              marginBottom: 10,
+              marginHorizontal: 10,
+              backgroundColor: "#3cb371",
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -360,6 +431,18 @@ const StudyScreen = ({ navigation, route }) => {
     </SafeAreaView>
   );
 };
+
+const CreateStudyScreen = ({ navigation, route }) => {
+  const thisWindow = useWindowDimensions();
+
+  return (
+    <SafeAreaView style = { styles.container } >
+      <ScrollView>
+        <Text> Create a study! </Text>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 /**
  * StackNavigator using React Navigation
@@ -396,7 +479,7 @@ export const StudiesStackScreen = () => {
                 <Ionicons name = "ios-search-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
               </Pressable>
               <Pressable
-                onPress = {() => Alert.alert('Create pressed')}
+                onPress = {({ navigation }) => {navigation.navigate("Create");}}
                 style = { styles.tinyIcon }
               >
                 <Ionicons name = "ios-create-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
@@ -408,6 +491,13 @@ export const StudiesStackScreen = () => {
       <StudiesStack.Screen
         name = "Study"
         component = { StudyScreen }
+        options = {({ route }) => ({ 
+          title: route.params.name, 
+        })}
+      />
+      <StudiesStack.Screen
+        name = "Create"
+        component = { CreateStudyScreen }
         options = {({ route }) => ({ 
           title: route.params.name, 
         })}
@@ -457,10 +547,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   studyButtons: {
-    marginHorizontal: 10,
-    marginBottom: 10,
     fontSize: FONT_SIZES.buttonTitle,
-    backgroundColor: "#3cb371",
     color: "white",
     padding: 5,
   },
