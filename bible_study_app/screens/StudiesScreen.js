@@ -14,6 +14,7 @@ import { useWindowDimensions,
          StatusBar, 
          StyleSheet, 
          Text, 
+         TextInput,
          View, 
        } from 'react-native';
 
@@ -255,7 +256,7 @@ const renderStudyList = (contents, navigation) => (
  */
 const Section = ({ title, contents, navigation }) => (
   <View style = { styles.section }>
-    <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}>{title}</Text>
+    <Text style = { styles.sectionHeader }>{title}</Text>
     <ScrollView 
       style = {{ flex: 1, flexDirection: 'row' }}
       horizontal = { true }
@@ -264,6 +265,26 @@ const Section = ({ title, contents, navigation }) => (
       renderStudyList(contents, navigation)
     }
     </ScrollView>
+  </View>
+);
+
+const TextInputAndInfo = ({ inputTitle, inputInfo }) => (
+  <View style = {{
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: 10,
+    marginBottom: 10,
+  }}>
+    <TextInput
+      style = {{ flex: 3, padding: 5, height: 30, borderColor: 'gray', borderWidth: 1, }} 
+      placeholder = { inputTitle } 
+    />
+    <Pressable
+      onPress = {() => Alert.alert("Info", { inputInfo })}
+      style = {{ flex: 1, marginLeft: 10, }}
+    >
+      <Ionicons name = "ios-information-circle-outline" size = { FONT_SIZES.iconSize } color = { "black" } />
+    </Pressable>
   </View>
 );
 
@@ -282,6 +303,27 @@ const HomeScreen = ({ navigation, route }) => {
     />
   );
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+            <View style = { styles.pageHeader }>
+              <Pressable
+                onPress = {() => Alert.alert('Search pressed')}
+                style = { styles.tinyIcon }
+              >
+                <Ionicons name = "ios-search-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
+              </Pressable>
+              <Pressable
+                onPress = {() => {navigation.navigate("Create")}}
+                style = { styles.tinyIcon }
+              >
+                <Ionicons name = "ios-create-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
+              </Pressable>
+            </View>
+      ),
+    });
+  }, [navigation]);
+
   return (
     <SafeAreaView style = { styles.container } >
       <ScrollView>
@@ -289,7 +331,7 @@ const HomeScreen = ({ navigation, route }) => {
         flexDirection: 'column',
         marginBottom: 10,
       }}>
-        <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> Most Recent </Text>
+        <Text style = { styles.sectionHeader }> Most Recent </Text>
         <RecentStudy
           pic = {{ uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.lrkPsPieG3IbpWBelNncnwHaF7%26pid%3DApi&f=1' }}
           nav = { navigation }
@@ -325,7 +367,7 @@ const StudyScreen = ({ navigation, route }) => {
                }}
         />
         <View style = { styles.section }>
-          <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> { route.params.studyTitle } </Text>
+          <Text style = { styles.sectionHeader }> { route.params.studyTitle } </Text>
           <Text style = {{ marginLeft: 10, marginBottom: 10,}}> { route.params.studyGroup } </Text>
           <Text style = {{ marginLeft: 10, marginBottom: 10,}}> { route.params.studyBlurb } </Text>
           <Text style = {{ marginLeft: 10, marginBottom: 10, }}> { route.params.studyVerses } </Text>
@@ -361,7 +403,7 @@ const StudyScreen = ({ navigation, route }) => {
               style = { styles.studyButtons }
             > Reflection Forum </Text>
           </Pressable>
-          <Text style = {{ fontSize: FONT_SIZES.sectionHeader, margin: 10, }}> Study Tools </Text>
+          <Text style = { styles.sectionHeader }> Study Tools </Text>
           <Pressable
             onPress = {() => Alert.alert('Open Context')}
             style = {{
@@ -438,7 +480,19 @@ const CreateStudyScreen = ({ navigation, route }) => {
   return (
     <SafeAreaView style = { styles.container } >
       <ScrollView>
-        <Text> Create a study! </Text>
+        <Text style = { styles.sectionHeader }> General Information </Text>
+        <TextInputAndInfo
+          inputTitle = "Title"
+          inputInfo = "Title of the study"
+        />
+        <TextInputAndInfo
+          inputTitle = "About/Key Question"
+          inputInfo = "Describe the goals of the study or ask a key question to focus the goal of the study"
+        />
+        <TextInputAndInfo
+          inputTitle = "Verses"
+          inputInfo = "Verses used in the study"
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -464,29 +518,13 @@ export const StudiesStackScreen = () => {
       <StudiesStack.Screen 
         name = "Home" 
         component = { HomeScreen } 
-        options = {{  
+        options = {({ navigation, route }) => ({  
           headerTitle: "Studies",
           headerTitleAlign: "left",
           headerTitleStyle: { 
             fontSize: FONT_SIZES.pageHeader, 
           },
-          headerRight: () => (
-            <View style = { styles.pageHeader }>
-              <Pressable
-                onPress = {() => Alert.alert('Search pressed')}
-                style = { styles.tinyIcon }
-              >
-                <Ionicons name = "ios-search-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
-              </Pressable>
-              <Pressable
-                onPress = {({ navigation }) => {navigation.navigate("Create");}}
-                style = { styles.tinyIcon }
-              >
-                <Ionicons name = "ios-create-outline" size = { FONT_SIZES.iconSize } color = { "mediumseagreen" }/>
-              </Pressable>
-            </View>
-          ),
-        }}
+        })}
       />
       <StudiesStack.Screen
         name = "Study"
@@ -499,7 +537,7 @@ export const StudiesStackScreen = () => {
         name = "Create"
         component = { CreateStudyScreen }
         options = {({ route }) => ({ 
-          title: route.params.name, 
+          title: "Create", 
         })}
       />
     </StudiesStack.Navigator>
@@ -550,5 +588,9 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.buttonTitle,
     color: "white",
     padding: 5,
+  },
+  sectionHeader: {
+    fontSize: FONT_SIZES.sectionHeader, 
+    margin: 10,
   },
 });
