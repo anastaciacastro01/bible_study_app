@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StudiesStackScreen } from './screens/StudiesScreen.js';
 import { ChatScreen } from './screens/ChatScreen.js';
-import { PrayerBoardScreen } from './screens/PrayerBoardScreen.js';
+import { PrayerBoardStackScreen } from './screens/PrayerBoardScreen.js';
 
 /**
  * navigation
@@ -82,7 +82,7 @@ export default function App() {
           />
           <Tab.Screen
             name = "PrayerBoard"
-            component = { PrayerBoardScreen }
+            component = { PrayerBoardStackScreen }
             options = {{ title: 'Prayer Board' }}
           />
         </Tab.Navigator>

@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Header } from 'react-native-elements';
-import { Checkbox } from 'expo-checkbox';
 import { useWindowDimensions, 
          Alert,
          Button,
@@ -14,6 +13,7 @@ import { useWindowDimensions,
          ScrollView,
          StatusBar, 
          StyleSheet, 
+         Switch,
          Text, 
          TextInput,
          View, 
@@ -273,21 +273,87 @@ const TextInputAndInfo = ({ inputTitle, inputInfo }) => (
   <View style = {{
     flex: 1,
     flexDirection: 'row',
-    marginLeft: 10,
     marginBottom: 10,
   }}>
     <TextInput
-      style = {{ flex: 3, padding: 5, height: 30, borderColor: 'gray', borderWidth: 1, }} 
+      style = {{ flex: 3, padding: 5, height: 40, borderColor: 'gray', borderWidth: 1, fontSize: FONT_SIZES.buttonTitle, }} 
       placeholder = { inputTitle } 
     />
     <Pressable
       onPress = {() => Alert.alert("Info", { inputInfo })}
-      style = {{ flex: 1, marginLeft: 10, }}
+      style = {{ flex: 1, marginLeft: 10, justifyContent: 'center', }}
     >
       <Ionicons name = "ios-information-circle-outline" size = { FONT_SIZES.iconSize } color = { "black" } />
     </Pressable>
   </View>
 );
+
+const SwitchAndInfo = ({ switchTitle, switchInfo }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(prevState => !prevState);
+
+  return (
+  <View style = {{
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10,
+    alignItems: 'center',
+  }}>
+    <View style = {{ flex: 3, flexDirection: 'row', alignItems: 'center', paddingRight: 5, }}>
+      <Switch
+        value = { isEnabled }
+        onValueChange = { toggleSwitch }
+      />
+      <Text style = {{ marginLeft: 5, fontSize: FONT_SIZES.buttonTitle}}> { switchTitle } </Text>
+    </View>
+    <Pressable
+      onPress = {() => Alert.alert("Info", { switchInfo })}
+      style = {{ flex: 1, marginLeft: 10, }}
+    >
+      <Ionicons name = "ios-information-circle-outline" size = { FONT_SIZES.iconSize } color = { "black" } />
+    </Pressable>
+  </View>
+  );
+};
+
+const AddPictureMenu = ({ picMenuInfo }) => {
+  return (
+      <View style = {{ flexDirection: 'row' }}>
+        <View style = {{ flex: 3, paddingRight: 5, }}>
+          <View style = {{ flex: 1, flexDirection: 'row', alignItems: 'center', marginBottom: 10, }}>
+            <Ionicons name = "camera-outline" size = { FONT_SIZES.iconSize } />
+            <Text style = {{ fontSize: FONT_SIZES.buttonTitle }}> Add Picture </Text>
+          </View>
+          <View style = {{ alignItems: 'flex-start', marginLeft: 10, }}>
+          <Pressable
+            onPress = {() => Alert.alert("Upload picture menu") }
+            style = {{ marginBottom: 10, border: 1, }}
+          >
+            <Text style = {{ fontSize: FONT_SIZES.buttonTitle, }}> Upload Picture </Text>
+          </Pressable>
+          <Pressable
+            onPress = {() => Alert.alert("create verse picture menu") }
+            style = {{ marginBottom: 10, border: 1,  }}
+          >
+            <Text style = {{ fontSize: FONT_SIZES.buttonTitle, }}> Create Verse Picture </Text>
+          </Pressable>
+          <Pressable
+            onPress = {() => Alert.alert("browse picture menu") }
+            style = {{ marginBottom: 10, border: 1, }}
+          >
+            <Text style = {{ fontSize: FONT_SIZES.buttonTitle, }}> Browse Pictures </Text>
+          </Pressable>
+          </View>
+        </View>
+        <Pressable
+          onPress = {() => Alert.alert("Info", { picMenuInfo })}
+          style = {{ flex: 1, marginLeft: 10, }}
+        >
+          <Ionicons name = "ios-information-circle-outline" size = { FONT_SIZES.iconSize } color = { "black" } />
+        </Pressable>
+      </View>
+  );
+};
 
 /**
  * HomeScreen frame - creates the design for the Home Screen of the StudiesScreen 
@@ -480,8 +546,10 @@ const CreateStudyScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style = { styles.container } >
-      <ScrollView>
-        <Text style = { styles.sectionHeader }> General Information </Text>
+      <ScrollView style = {{
+        marginLeft: 10,
+      }}>
+        <Text style = {{ fontSize: FONT_SIZES.sectionHeader, marginVertical: 10, }}> General Information </Text>
         <TextInputAndInfo
           inputTitle = "Title"
           inputInfo = "Title of the study"
@@ -494,10 +562,34 @@ const CreateStudyScreen = ({ navigation, route }) => {
           inputTitle = "Verses"
           inputInfo = "Verses used in the study"
         />
-        <Checkbox
-          value = { false }
+        <SwitchAndInfo
+          switchTitle = "Make Verses Visible"
+          switchInfo = "Make verses visible on the study screen. If you have a long list of separate verses, having them visible on the Studies Screen may make other components hard to see. The verses will still be visible on the screen for the individual study."
+        />
+        <AddPictureMenu
+          picMenuInfo = "Add a picture to represent the study"
+        />
+        <SwitchAndInfo
+          switchTitle = "Make Public"
+          switchInfo = "Make this study available to user on this app. No one can directly edit this study, but they do have access to it."
         />
       </ScrollView>
+      <Pressable
+        onPress = {() => Alert.alert("Finished creating study!")}
+        style = {{ 
+          borderRadius: 10,
+          flex: 1,
+          overflow: 'hidden',
+          marginBottom: 10,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "mediumseagreen",
+          maxHeight: 40,
+          margin: 10,
+        }}
+      >
+        <Text style = { styles.studyButtons }> Done </Text>
+      </Pressable>
     </SafeAreaView>
   );
 }
