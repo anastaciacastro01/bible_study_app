@@ -3,6 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { Header } from 'react-native-elements';
+import { Checkbox } from 'expo-checkbox';
 import { useWindowDimensions, 
          Alert,
          Button,
@@ -492,6 +493,9 @@ const CreateStudyScreen = ({ navigation, route }) => {
         <TextInputAndInfo
           inputTitle = "Verses"
           inputInfo = "Verses used in the study"
+        />
+        <Checkbox
+          value = { false }
         />
       </ScrollView>
     </SafeAreaView>
