@@ -276,7 +276,7 @@ const TextInputAndInfo = ({ inputTitle, inputInfo }) => (
     marginBottom: 10,
   }}>
     <TextInput
-      style = {{ flex: 3, padding: 5, height: 40, borderColor: 'gray', borderWidth: 1, fontSize: FONT_SIZES.buttonTitle, }} 
+      style = {{ flex: 9, padding: 5, height: 40, borderColor: 'gray', borderWidth: 1, fontSize: FONT_SIZES.buttonTitle, }} 
       placeholder = { inputTitle } 
     />
     <Pressable
@@ -299,7 +299,7 @@ const SwitchAndInfo = ({ switchTitle, switchInfo }) => {
     marginBottom: 10,
     alignItems: 'center',
   }}>
-    <View style = {{ flex: 3, flexDirection: 'row', alignItems: 'center', paddingRight: 5, }}>
+    <View style = {{ flex: 9, flexDirection: 'row', alignItems: 'center', paddingRight: 5, }}>
       <Switch
         value = { isEnabled }
         onValueChange = { toggleSwitch }
@@ -319,7 +319,7 @@ const SwitchAndInfo = ({ switchTitle, switchInfo }) => {
 const AddPictureMenu = ({ picMenuInfo }) => {
   return (
       <View style = {{ flexDirection: 'row' }}>
-        <View style = {{ flex: 3, paddingRight: 5, }}>
+        <View style = {{ flex: 9, paddingRight: 5, }}>
           <View style = {{ flex: 1, flexDirection: 'row', alignItems: 'center', marginBottom: 10, }}>
             <Ionicons name = "camera-outline" size = { FONT_SIZES.iconSize } />
             <Text style = {{ fontSize: FONT_SIZES.buttonTitle }}> Add Picture </Text>
@@ -549,7 +549,7 @@ const CreateStudyScreen = ({ navigation, route }) => {
       <ScrollView style = {{
         marginLeft: 10,
       }}>
-        <Text style = {{ fontSize: FONT_SIZES.sectionHeader, marginVertical: 10, }}> General Information </Text>
+        <Text style = {{ fontSize: FONT_SIZES.sectionHeader, marginVertical: 10, }}> Enter Information </Text>
         <TextInputAndInfo
           inputTitle = "Title"
           inputInfo = "Title of the study"
