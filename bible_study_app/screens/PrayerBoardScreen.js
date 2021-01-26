@@ -77,7 +77,7 @@ const Prayer = ({ img, title }) => {
         width: thisWindow.width / 2,
         height: thisWindow.width / 2,
         marginHorizontal: 5, 
-        marginTop: 10,
+        marginBottom: 10,
         borderRadius: 10,
         overflow: 'hidden',
         }}
@@ -104,6 +104,7 @@ const PrayerBoardScreen = ({ navigation, route }) => {
         keyExtractor = { item => item.id }
         horizontal = { false }
         numColumns = { 2 }
+        style = {{ marginHorizontal: 5, marginTop: 10,  }}
       />
     </SafeAreaView>
   );

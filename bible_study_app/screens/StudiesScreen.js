@@ -255,7 +255,7 @@ const renderStudyList = (contents, navigation) => (
  * @params: title - the title of the section
  *          contents - Studies included in that section
  */
-const Section = ({ title, contents, navigation }) => (
+export const Section = ({ title, contents, navigation, renderFunc }) => (
   <View style = { styles.section }>
     <Text style = { styles.sectionHeader }>{title}</Text>
     <ScrollView 
@@ -263,7 +263,7 @@ const Section = ({ title, contents, navigation }) => (
       horizontal = { true }
     >
     {
-      renderStudyList(contents, navigation)
+      renderFunc(contents, navigation)
     }
     </ScrollView>
   </View>
@@ -367,6 +367,7 @@ const HomeScreen = ({ navigation, route }) => {
       title = { item.title }
       contents = { item.contents }
       navigation = { navigation }
+      renderFunc = { renderStudyList }
     />
   );
 

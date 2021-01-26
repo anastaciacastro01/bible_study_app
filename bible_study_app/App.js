@@ -16,8 +16,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StudiesStackScreen } from './screens/StudiesScreen.js';
-import { ChatScreen } from './screens/ChatScreen.js';
 import { PrayerBoardStackScreen } from './screens/PrayerBoardScreen.js';
+import { GroupsStackScreen } from './screens/GroupsScreen.js';
+import { ProfileStackScreen } from './screens/ProfileScreen.js';
 
 /**
  * navigation
@@ -41,18 +42,18 @@ export default function App() {
                 iconName = focused
                   ? 'ios-book'
                   : 'ios-book-outline'
-              } else if (route.name === 'Chat') {
+              } else if (route.name === 'Profile') {
                 iconName = focused
-                  ? 'ios-chatbubbles-sharp'
-                  : 'ios-chatbubbles-outline'
-              } else if (route.name === 'PrayerBoard') {
+                  ? 'ios-person-sharp'
+                  : 'ios-person-outline'
+              } else if (route.name === 'Groups') {
                 iconName = focused
                   ? 'ios-people-sharp'
                   : 'ios-people-outline'
-              } else if (route.name === 'Menu') {
+              } else if (route.name === 'PrayerBoard') {
                 iconName = focused
-                  ? 'ios-menu-sharp'
-                  : 'ios-menu-outline'
+                  ? 'ios-grid-sharp'
+                  : 'ios-grid-outline'
               }
               
 
@@ -67,8 +68,9 @@ export default function App() {
           }}
         >
           <Tab.Screen
-            name = "Menu"
-            component = { ProfileScreen }
+            name = "Profile"
+            component = { ProfileStackScreen }
+            options = {{ title: 'Profile' }}
           />
           <Tab.Screen 
             name = "Studies"
@@ -76,14 +78,14 @@ export default function App() {
             options = {{ title: 'Studies' }}
           />
           <Tab.Screen
-            name = "Chat"
-            component = { ChatScreen }
-            options = {{ title: 'Chat' }}
-          />
-          <Tab.Screen
             name = "PrayerBoard"
             component = { PrayerBoardStackScreen }
             options = {{ title: 'Prayer Board' }}
+          />
+          <Tab.Screen
+            name = "Groups"
+            component = { GroupsStackScreen }
+            options = {{ title: 'Groups' }}
           />
         </Tab.Navigator>
         <StatusBar style = "auto" />
