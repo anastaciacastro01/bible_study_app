@@ -92,7 +92,7 @@ const GROUPS = [
  */
 const Group = ({ pic, nav, title, isMember, isPrivate, }) => {
   const thisWindow = useWindowDimensions();
-  
+
   return (
     <View>
       <Pressable 
@@ -104,9 +104,6 @@ const Group = ({ pic, nav, title, isMember, isPrivate, }) => {
           borderRadius: 10,
           overflow: 'hidden',
         }}
-        onPress = {() => 
-            Alert.alert({title})
-        }
       >
         <Image source = { pic } style = { styles.image }/>
         <Text style = { styles.caption }> { title } </Text>
@@ -115,35 +112,37 @@ const Group = ({ pic, nav, title, isMember, isPrivate, }) => {
   );
 };
 
-const renderGroupList = ( contents, navigation ) => {
+const renderGroupList = ( contents, navigation ) => (
   contents.map(
     (group) => {
       return (
         <Group
-          isMember = { group.isMember }
           pic = {{ uri: group.pic }}
-          title = { group.title }
           nav = { navigation }
+          title = { group.title }
+          isMember = { group.isMember }
           isPrivate = { group.isPrivate }
         />
-      )
+      );
     }
   )
-};
+);
 
 const GroupsScreen = ({ navigation, route }) => {
+  let bool = true;
+
   return (
     <SafeAreaView style = { styles.container }>
       <Section
-        navigation = { navigation }
         title = "My Groups"
         contents = { GROUPS.filter((group) => group.isMember) }
+        navigation = { navigation }
         renderFunc = { renderGroupList }
       />
       <Section
-        navigation = { navigation }
         title = "Browse Groups"
-        contents = { GROUPS.filter((group) => group.isMember) }
+        contents = { GROUPS.filter((group) => !group.isMember) }
+        navigation = { navigation }
         renderFunc = { renderGroupList }
       />
     </SafeAreaView>
